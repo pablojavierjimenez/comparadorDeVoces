@@ -1,4 +1,10 @@
 
+const MAX_MIDI = 108;
+const MIN_MIDI = 21;
+
+
+
+
 /**
  * [description]
  * @param  {[type]} v1 [description]
@@ -59,9 +65,49 @@ var getAllpoosiblePosition = (noteValue) => {
   return posiblePositionArray;
 };
 
+var octaveUp = (arrNotes) => {
+  let finalList = [];
+  for (var i=0; i< arrNotes.length; i++){
+    finalList.push(arrNotes[i] + 12 );
+  }
+
+  return finalList;
+};
+
+var createNoteId = (startFrom) => {
+  var obj = {};
+  var notelist = Object.keys(startFrom);
+  notelist.forEach( ( noteGroup ) => {
+    //obj[noteGroup] = [];
+    for (var i=0; i< 8; i++){
+      let name = noteGroup + i;
+      if (i === 0) {
+        obj[name] = startFrom[noteGroup];
+      }  else {
+        obj[name] = startFrom[noteGroup];
+      }
+      startFrom[noteGroup] = startFrom[noteGroup] + 12;
+    }
+  });
+  return obj;
+};
 ////////////////////////////////////////
-var Do = 64;
-let possible_Do = getAllpoosiblePosition(Do);
-var voz1 = [64, 66, 68];
-var voz2 = [57, 59, 61];
-var stepList =distancesBetween(voz1, voz2);
+var noteStart = {
+  "la": 21,
+  "la_sharp": 22,
+  "si": 23,
+  "do": 24,
+  "do_sharp": 25,
+  "re": 26,
+  "re_sharp": 27,
+  "mi": 28,
+  "fa": 29,
+  "fa_sharp": 30,
+  "sol": 31,
+  "sol_sharp": 32
+};
+
+let possible_Do = getAllpoosiblePosition(noteStart.do);
+
+var voz1 = [60, 62, 63, 60, 62];
+var voz2 = [53, 55, 57, 53, 55];
